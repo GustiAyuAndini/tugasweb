@@ -21,13 +21,21 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('v1/customers', [CustomerController::class, 'index']);
-
-Route::get('v1/customers/{id}', [CustomerController::class, 'index']);
 Route::get('v1/customers/{id}', [CustomerController::class, 'show']);
+Route::group(['prefix'=> 'v1'], function(){
 
-//crud products
-Route::get('/products', [ProductController:: class, 'index'])->name('products.index');
-Route::post('/products', [ProductController:: class, 'store'])->name('products.store');
-Route::get('/products/{products}', [ProductController:: class, 'show'])->name('products.show');
-Route::patch('/products/{products}', [ProductController::class, 'update'])->name('products.update');
-Route::delete('/products/{products}', [ProductController:: class, 'destroy'])->name('products.destroy'); 
+    Route::get('customers', [CustomerController::class, 'index']);
+    Route::get('customers/{id}', [CustomerController::class, 'show']);
+    Route::post('customers', [CustomerController::class, 'store']);
+    Route::patch('customers/{id}', [CustomerController::class, 'update']);
+    Route::delete('customers/{id}', [CustomerController::class, 'delete']);
+
+});
+
+
+Route::get('products', [ProductController::class, 'index']);
+Route::get('products/{id}', [ProductController::class, 'show']);
+Route::post('products', [ProductController::class, 'store']);
+Route::patch('products/{id}', [ProductController::class, 'update']);
+Route::delete('products/{id}', [ProductController::class, 'delete']);
+
